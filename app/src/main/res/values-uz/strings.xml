@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reminder</string>
+    <string name="fragment_add_title">Eslatma qo\'shish</string>
+    <string name="edit_text_hint">Matn kiriting</string>
+    <string name="reminder_date">Eslatma sanasi</string>
+    <string name="reminder_time">Eslatma vaqti</string>
+    <string name="every_day_mode">Xar kunlik eslatma</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="ok">Saqlash</string>
+    <string name="languagesListName">Til</string>
+    <string name="englishLanguage">Ingliz</string>
+    <string name="russianLanguage">Rus</string>
+    <string name="start_audio">Audioni yoqish</string>
+    <string name="delate">Oʻchirish</string>
+    <string name="edit">Tahrirlash</string>
+    <string name="choose_time">Vaqtni tanlang:</string>
+    <string name="changes_saved">Oʻzgarishlar saqlandi!</string>
+    <string name="reminder_set">Eslatma o\'rnatildi!</string>
+    <string name="please_write_a_name">Nom kiriting!</string>
+    <string name="please_record_your_voice">Iltimos, ovozingizni yozib oling!</string>
+    <string name="select_upcoming_time">Kelgusi vaqtni tanlang!</string>
+    <string name="speak">Gapiring...</string>
+    <string name="stoped">To\'xtadi...</string>
+    <string name="allowMicrophone">Bu funksiyadan foydalanish uchun mikrofonga ruxsat bering!</string>
+    <string name="every_day">Xar kuni</string>
+    <string name="disposable">Bir martalik</string>
+    <string name="permissions">Ruxsatlar</string>
+    <string name="recomend">Dasturning barcha funksiyalaridan foydalanish uchun quyidagi so\'ro\'vlarga ruxsat bering</string>
+    <string name="voice">Mikrofon</string>
+    <string name="voice_permission_recomend">Biz mikrofondan ovozni yozib olish va berilgan vaqt kelganda uni ijro etish uchun  foydalanamiz. Sizni ishontirib aytamizki, biz mikrofondan yomon maqsadlarda foydalanmaymiz. Mikrofonga ruxsat bermasangiz, dasturdagi ba\'zi funksiyalar ishlamasligi mumkin.</string>
+    <string name="allow">Ruxsat berish</string>
+    <string name="on_top_of_other_windows">Qolgan oynalar ustida</string>
+    <string name="overlay_permission_recomend">Xattoki siz ishlayotgan paytingizda xam berilgan vaqt kelganda dastur qalqib chiqib sizni ogoxlantirishi uchun bu so\'ro\'vga ruxsat bering. Agar ruxsat bermasangiz dastur odatiy tarzda ishlolmaydi. Ruxsat berish uchun pastdagi tugmani bosing. Va sozlamalar bo\'limidan Reminder dasturini topib uni yoniq xolatga o\'tkazing.</string>
+    <string name="next">Keyingi</string>
+    <string name="mi_brand_title">Mi (Xiaomi) brendi telefoni egalariga</string>
+    <string name="mi_brand_recomend1">Agar sizda Mi (Xiaomi) brendidagi telefon bo\'lsa. Dastur sozlamalariga o\'tib quyidagilarga ruxsat bering.</string>
+    <string name="mi_brand_recomend2">"Agar ruxsat bermasangiz dastur odatiy tarzda ishlolmaydi. "</string>
+    <string name="uzbek">O\'zbek</string>
+    <string name="vibrate_mode">Vibratsiyali rejim</string>
+    <string name="reminder_on_list">Bunday vaqtdagi eslatma ro\'yxatda mavjud!</string>
+</resources>

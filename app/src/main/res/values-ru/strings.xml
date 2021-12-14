@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Напоминание</string>
+    <string name="fragment_add_title">Добавить напоминание</string>
+    <string name="edit_text_hint">Добавьте текст</string>
+    <string name="reminder_date">Дата напоминания</string>
+    <string name="reminder_time">Время напоминания</string>
+    <string name="every_day_mode">Ежедневный режим</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">Сохранить</string>
+    <string name="languagesListName">Язык</string>
+    <string name="englishLanguage">Английский</string>
+    <string name="russianLanguage">Русский</string>
+    <string name="start_audio">Начать аудио</string>
+    <string name="delate">Удалить</string>
+    <string name="edit">Редактировать</string>
+    <string name="choose_time">Выберите время:</string>
+    <string name="changes_saved">Изменения сохранены!</string>
+    <string name="reminder_set">Напоминание установлено!</string>
+    <string name="please_write_a_name">Напишите имя!</string>
+    <string name="please_record_your_voice">Пожалуйста, запишите свой голос!</string>
+    <string name="select_upcoming_time">Выберите предстоящее время!</string>
+    <string name="speak">Говорите...</string>
+    <string name="stoped">Остановился ...</string>
+    <string name="allowMicrophone">Чтобы использовать эту функцию, разрешите микрофону!</string>
+    <string name="every_day">Каждый день</string>
+    <string name="disposable">Одноразовый</string>
+    <string name="permissions">Разрешения</string>
+    <string name="recomend">Разрешите следующие запросы чтобы использовать все функции программы</string>
+    <string name="voice">Микрофон</string>
+    <string name="voice_permission_recomend">Мы используем микрофон, чтобы записывать звук и воспроизводить его, когда придет заддонной время. Уверяем вас, что мы не будем использовать микрофон в злых целях. Некоторые функции в программе могут не работать, если вы не разрешаете микрофон.</string>
+    <string name="allow">Разрешить</string>
+    <string name="on_top_of_other_windows">Поверх остальных окон</string>
+    <string name="overlay_permission_recomend">"Разрешите этот запрос, чтобы программа просыпалась и предупреждала вас, когда наступило заддоной время, даже когда вы работаете. Если вы этого не разрешите, программа не будет работать нормально. Нажмите кнопку ниже, чтобы разрешить. И найдите приложение "Напоминание" в разделе настроек и включите его."</string>
+    <string name="next">Следующий</string>
+    <string name="mi_brand_title">Владельцам телефонов марки Mi (Xiaomi)</string>
+    <string name="mi_brand_recomend1">Если у вас телефон марки Mi (Xiaomi). Зайдите в настройки программы и разрешите следующее.</string>
+    <string name="mi_brand_recomend2">Если вы этого не разрешите, программа не будет работать нормально.</string>
+    <string name="uzbek">Узбекский</string>
+    <string name="vibrate_mode">Режим вибрации</string>
+    <string name="reminder_on_list">Напоминание в это время есть в списке!</string>
+</resources>

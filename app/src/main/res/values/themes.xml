@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Reminder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">#f2f2f2</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="backgraundStyle">
+        <item name="android:background">#f2f2f2</item>
+    </style>
+
+    <style name="cardBackgraund">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="textColor">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="floatingButtonTint">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+    <style name="shapeBackgraund">
+        <item name="android:backgroundTint">@color/white</item>
+    </style>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/startAudio"
+        android:title="@string/start_audio"/>
+
+    <item android:id="@+id/deleteReminder"
+        android:title="@string/delate"/>
+
+    <item android:id="@+id/editReminder"
+        android:title="@string/edit"/>
+
+</menu>
