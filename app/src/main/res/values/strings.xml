@@ -33,9 +33,10 @@
     <string name="overlay_permission_recomend">Allow this request so that the program wakes up and warns you when the time is right, even when you are working. If you do not allow it, the program will not work normally. Click the button below to allow. And find the "Reminder" app in the settings section and enable it.</string>
     <string name="next">Next</string>
     <string name="mi_brand_title">For owners of Mi brand phones (Xiaomi)</string>
-    <string name="mi_brand_recomend1">If you have a Mi brand phone (Xiaomi). Go to the program settings and allow the following.</string>
+    <string name="mi_brand_recomend1">If you have a Mi brand phone (Xiaomi). Go to app settings using the button below to allow the following:</string>
     <string name="mi_brand_recomend2">If you do not allow this, the program will not work normally.</string>
     <string name="uzbek">Uzbek</string>
     <string name="vibrate_mode">Vibrate mode</string>
     <string name="reminder_on_list">A reminder at this time is on the list!</string>
+    <string name="open_app_settings">Open app settings</string>
 </resources>

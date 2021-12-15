@@ -34,9 +34,10 @@
     <string name="overlay_permission_recomend">Xattoki siz ishlayotgan paytingizda xam berilgan vaqt kelganda dastur qalqib chiqib sizni ogoxlantirishi uchun bu so\'ro\'vga ruxsat bering. Agar ruxsat bermasangiz dastur odatiy tarzda ishlolmaydi. Ruxsat berish uchun pastdagi tugmani bosing. Va sozlamalar bo\'limidan Reminder dasturini topib uni yoniq xolatga o\'tkazing.</string>
     <string name="next">Keyingi</string>
     <string name="mi_brand_title">Mi (Xiaomi) brendi telefoni egalariga</string>
-    <string name="mi_brand_recomend1">Agar sizda Mi (Xiaomi) brendidagi telefon bo\'lsa. Dastur sozlamalariga o\'tib quyidagilarga ruxsat bering.</string>
+    <string name="mi_brand_recomend1">Agar sizda Mi (Xiaomi) brendidagi telefon bo\'lsa. Pastdagi tugma orqali dastur sozlamalariga o\'tib quyidagilarga ruxsat bering:</string>
     <string name="mi_brand_recomend2">"Agar ruxsat bermasangiz dastur odatiy tarzda ishlolmaydi. "</string>
     <string name="uzbek">O\'zbek</string>
     <string name="vibrate_mode">Vibratsiyali rejim</string>
     <string name="reminder_on_list">Bunday vaqtdagi eslatma ro\'yxatda mavjud!</string>
+    <string name="open_app_settings">Ilova sozlamalarini ochish</string>
 </resources>

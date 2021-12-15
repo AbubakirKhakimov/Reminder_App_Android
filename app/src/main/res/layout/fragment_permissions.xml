@@ -249,7 +249,7 @@
             android:layout_marginTop="24dp"
             android:backgroundTint="#009688"
             android:gravity="center"
-            android:text="Open app settings"
+            android:text="@string/open_app_settings"
             android:textColor="@color/white" />
 
         <TextView
