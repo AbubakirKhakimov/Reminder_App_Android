@@ -241,6 +241,17 @@
 
         </LinearLayout>
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/appSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#009688"
+            android:gravity="center"
+            android:text="Open app settings"
+            android:textColor="@color/white" />
+
         <TextView
             android:layout_marginTop="24dp"
             android:layout_width="match_parent"

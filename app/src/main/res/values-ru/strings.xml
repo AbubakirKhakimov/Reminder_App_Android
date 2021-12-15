@@ -23,7 +23,7 @@
     <string name="speak">Говорите...</string>
     <string name="stoped">Остановился ...</string>
     <string name="allowMicrophone">Чтобы использовать эту функцию, разрешите микрофону!</string>
-    <string name="every_day">Каждый день</string>
+    <string name="every_day">Ежедневный</string>
     <string name="disposable">Одноразовый</string>
     <string name="permissions">Разрешения</string>
     <string name="recomend">Разрешите следующие запросы чтобы использовать все функции программы</string>

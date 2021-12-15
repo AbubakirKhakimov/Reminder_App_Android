@@ -45,6 +45,12 @@ class PermissionsFragment : Fragment() {
             binding.overlayAllow.setBackgroundColor(Color.GRAY)
         }
 
+        binding.appSettings.setOnClickListener {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            intent.data = Uri.parse("package:" + requireActivity().packageName)
+            startActivity(intent)
+        }
+
         binding.next.setOnClickListener {
             replaceFragment(MainFragment())
         }
