@@ -1,17 +1,23 @@
 package com.x.a_technologies.reminder.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContextWrapper
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Environment
 import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -29,12 +35,14 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.media.MediaMetadataRetriever
 
 class AddReminderFragment : Fragment() {
 
     lateinit var binding: FragmentAddReminderBinding
     lateinit var mediaRecorder:MediaRecorder
     lateinit var mediaPlayer: MediaPlayer
+    lateinit var timer:CountDownTimer
     var remindersDataList = ArrayList<ReminderData>()
     var voiceRecorded = false
     var everyDayMode = false
@@ -48,7 +56,9 @@ class AddReminderFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentAddReminderBinding.inflate(layoutInflater)
+        read()
         getSystemColor()
+        timerObject()
         return binding.root
     }
 
@@ -63,36 +73,14 @@ class AddReminderFragment : Fragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        read()
 
         if (PublicDatas.position != -1){
             editExistingReminder(PublicDatas.position)
         }else {
             binding.reminderDate.text = SimpleDateFormat("dd.MM.yyyy").format(Date())
-        }
-
-        binding.btnVoiceRecord.setOnClickListener {
-            if (voiceRecorded){
-                mediaRecorder.stop()
-                mediaRecorder.release()
-                Toast.makeText(requireActivity(), getString(R.string.stoped), Toast.LENGTH_SHORT).show()
-
-                binding.btnPlay.visibility = View.VISIBLE
-                binding.btnVoiceRecord.setImageResource(R.drawable.ic_voice_record)
-                voiceRecorded=false
-            }else {
-                if (recordPath!=""){
-                    delateRecord(recordPath)
-                }
-                voiceRecord()
-                Toast.makeText(requireActivity(), getString(R.string.speak), Toast.LENGTH_SHORT).show()
-
-                binding.btnPlay.visibility = View.GONE
-                binding.btnVoiceRecord.setImageResource(R.drawable.ic_stop)
-                voiceRecorded=true
-            }
         }
 
         binding.btnPlay.setOnClickListener {
@@ -107,6 +95,7 @@ class AddReminderFragment : Fragment() {
                 mediaRecorder.stop()
                 mediaRecorder.release()
                 voiceRecorded=false
+                timer.cancel()
             }
 
             if (binding.reminderTitle.text.toString() == "") {
@@ -131,6 +120,7 @@ class AddReminderFragment : Fragment() {
                 mediaRecorder.stop()
                 mediaRecorder.release()
                 voiceRecorded=false
+                timer.cancel()
             }
 
             if (PublicDatas.position != -1){
@@ -216,6 +206,7 @@ class AddReminderFragment : Fragment() {
                     mediaRecorder.stop()
                     mediaRecorder.release()
                     voiceRecorded=false
+                    timer.cancel()
                 }
 
                 if (PublicDatas.position != -1){
@@ -239,6 +230,61 @@ class AddReminderFragment : Fragment() {
         }
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, callback)
 
+        binding.btnVoiceRecord.setOnTouchListener { v, event ->
+            when(event.action){
+                MotionEvent.ACTION_DOWN -> {
+                    if (recordPath!=""){
+                        delateRecord(recordPath)
+                    }
+                    voiceRecord()
+                    timer.start()
+
+                    binding.animationView.visibility = View.VISIBLE
+                    binding.btnPlay.isEnabled = false
+                    binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#007065"))
+                    binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.parseColor("#B6B6B6"))
+                    voiceRecorded=true
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (voiceRecorded) {
+                        mediaRecorder.stop()
+                        mediaRecorder.release()
+                        timer.cancel()
+
+                        binding.animationView.visibility = View.GONE
+                        binding.btnPlay.isEnabled = true
+                        binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#009688"))
+                        binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.WHITE)
+                        voiceRecorded = false
+                    }
+                }
+            }
+
+            return@setOnTouchListener true
+        }
+
+    }
+
+    fun timerObject(){
+        timer = object :CountDownTimer(15000, 10){
+
+            override fun onTick(millisUntilFinished: Long) {
+                binding.recordTime.text = SimpleDateFormat("ss.SS").format(Date(15000-millisUntilFinished))
+            }
+
+            override fun onFinish() {
+                mediaRecorder.stop()
+                mediaRecorder.release()
+                Toast.makeText(requireActivity(), requireActivity().getString(R.string.limitation), Toast.LENGTH_SHORT).show()
+
+                binding.animationView.visibility = View.GONE
+                binding.btnPlay.isEnabled = true
+                binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#009688"))
+                binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.WHITE)
+                voiceRecorded=false
+            }
+
+        }
     }
 
     fun searchReminder(): Boolean {
@@ -306,6 +352,7 @@ class AddReminderFragment : Fragment() {
             remindersDataList[position].reminderTitle)
         binding.reminderDate.text = getStringDateFormat("dd.MM.yyyy",remindersDataList[position].reminderTimeMillis)
         binding.reminderTime.text = getStringDateFormat("HH:mm",remindersDataList[position].reminderTimeMillis)
+        binding.recordTime.text = SimpleDateFormat("ss.SS").format(Date(getAudioDuration(position)))
 
         if (remindersDataList[position].everyDayMode){
             binding.everyDayMode.setTextColor(Color.WHITE)
@@ -319,8 +366,20 @@ class AddReminderFragment : Fragment() {
             vibrateMode = true
         }
 
+        binding.btnPlay.isEnabled = true
+        binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#009688"))
+        binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.WHITE)
+
         recordPath = remindersDataList[position].reminderAudioPath
         binding.btnPlay.visibility = View.VISIBLE
+    }
+
+    fun getAudioDuration(position: Int):Long{
+        val mediaMetadataRetriever = MediaMetadataRetriever()
+        mediaMetadataRetriever.setDataSource(remindersDataList[position].reminderAudioPath)
+        val durationStr =
+            mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        return durationStr!!.toLong()
     }
 
     fun getMillisTimeFormat():Long{
@@ -372,8 +431,10 @@ class AddReminderFragment : Fragment() {
     fun voiceRecord(){
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mediaRecorder.setAudioEncodingBitRate(16*44100)
+        mediaRecorder.setAudioSamplingRate(44100)
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         mediaRecorder.setOutputFile(getRecordingPathName())
         mediaRecorder.prepare()
         mediaRecorder.start()

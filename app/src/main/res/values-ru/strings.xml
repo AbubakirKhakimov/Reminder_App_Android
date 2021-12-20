@@ -20,8 +20,6 @@
     <string name="please_write_a_name">Напишите имя!</string>
     <string name="please_record_your_voice">Пожалуйста, запишите свой голос!</string>
     <string name="select_upcoming_time">Выберите предстоящее время!</string>
-    <string name="speak">Говорите...</string>
-    <string name="stoped">Остановился ...</string>
     <string name="allowMicrophone">Чтобы использовать эту функцию, разрешите микрофону!</string>
     <string name="every_day">Ежедневный</string>
     <string name="disposable">Одноразовый</string>
@@ -40,4 +38,5 @@
     <string name="vibrate_mode">Режим вибрации</string>
     <string name="reminder_on_list">Напоминание в это время есть в списке!</string>
     <string name="open_app_settings">Открыть настройки приложения</string>
+    <string name="limitation">Невозможно записать звук более 15 секунд!</string>
 </resources>

@@ -2,9 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/backgraundStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/backgraundStyle"
     tools:context=".fragments.AddReminderFragment">
 
     <ScrollView
@@ -17,9 +17,9 @@
             android:orientation="vertical">
 
             <LinearLayout
+                style="@style/shapeBackgraund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/shapeBackgraund"
                 android:background="@drawable/add_fragment_edit_text_backgraund"
                 android:orientation="vertical">
 
@@ -38,9 +38,9 @@
 
                 <EditText
                     android:id="@+id/reminderTitle"
+                    style="@style/shapeBackgraund"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/shapeBackgraund"
                     android:background="@drawable/add_fragment_edit_text_backgraund"
                     android:hint="@string/edit_text_hint"
                     android:padding="32dp"
@@ -60,12 +60,12 @@
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/reminderDate"
+                style="@style/floatingButtonTint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
-                style="@style/floatingButtonTint"
                 android:gravity="center"
                 android:text="22.10.2002"
                 android:textColor="#009688"
@@ -83,12 +83,12 @@
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/reminderTime"
+                style="@style/floatingButtonTint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                style="@style/floatingButtonTint"
+                android:layout_marginBottom="32dp"
                 android:gravity="center"
                 android:text="12:00"
                 android:textColor="#009688"
@@ -97,12 +97,12 @@
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/everyDayMode"
+                style="@style/floatingButtonTint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
-                style="@style/floatingButtonTint"
                 android:gravity="center"
                 android:text="@string/every_day_mode"
                 android:textColor="#009688"
@@ -111,52 +111,85 @@
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/vibrateMode"
+                style="@style/floatingButtonTint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                style="@style/floatingButtonTint"
+                android:layout_marginBottom="32dp"
                 android:gravity="center"
                 android:text="@string/vibrate_mode"
                 android:textColor="#009688"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
                 android:layout_marginBottom="60dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/recordTime"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    android:visibility="gone"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginRight="16dp"
+                    app:lottie_fileName="rec.json"
+                    app:lottie_loop="true" />
+
+                <TextView
+                    android:id="@+id/recordTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00.00"
+                    android:textColor="#009688"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnVoiceRecord"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnVoiceRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#FF5722"
+                    android:backgroundTint="#009688"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_voice_record"
                     app:fabSize="normal"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/white" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnPlay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:backgroundTint="#FF5722"
+                    app:backgroundTint="#007065"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_marginBottom="16dp"
                     android:src="@drawable/ic_play"
-                    android:visibility="gone"
                     app:fabSize="normal"
-                    app:tint="@color/white" />
+                    android:enabled="false"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/btnVoiceRecord"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#B6B6B6" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
@@ -165,18 +198,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btnCancel"
+            style="@style/floatingButtonTint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="16dp"
-            style="@style/floatingButtonTint"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -187,10 +220,10 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btnOk"
+            style="@style/floatingButtonTint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            style="@style/floatingButtonTint"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"

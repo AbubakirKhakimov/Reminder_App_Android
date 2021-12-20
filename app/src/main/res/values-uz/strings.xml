@@ -20,8 +20,6 @@
     <string name="please_write_a_name">Nom kiriting!</string>
     <string name="please_record_your_voice">Iltimos, ovozingizni yozib oling!</string>
     <string name="select_upcoming_time">Kelgusi vaqtni tanlang!</string>
-    <string name="speak">Gapiring...</string>
-    <string name="stoped">To\'xtadi...</string>
     <string name="allowMicrophone">Bu funksiyadan foydalanish uchun mikrofonga ruxsat bering!</string>
     <string name="every_day">Xar kuni</string>
     <string name="disposable">Bir martalik</string>
@@ -40,4 +38,5 @@
     <string name="vibrate_mode">Vibratsiyali rejim</string>
     <string name="reminder_on_list">Bunday vaqtdagi eslatma ro\'yxatda mavjud!</string>
     <string name="open_app_settings">Ilova sozlamalarini ochish</string>
+    <string name="limitation">15 sekunddan ortiq audio yozish mumkin emas!</string>
 </resources>

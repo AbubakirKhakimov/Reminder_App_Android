@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/activity_alarm_auto_run.xml" value="0.151268115942029" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/fragment_add_reminder.xml" value="0.264" />
         <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/fragment_permissions.xml" value="0.264" />
       </map>
     </option>
