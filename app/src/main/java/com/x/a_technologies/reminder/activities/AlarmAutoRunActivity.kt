@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Vibrator
 import android.view.Window
 import com.google.gson.Gson
@@ -22,14 +23,16 @@ import com.x.a_technologies.reminder.utils.LocaleManager
 class AlarmAutoRunActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAlarmAutoRunBinding
-    lateinit var mediaPlayer:MediaPlayer
+    lateinit var mediaPlayer: MediaPlayer
+    lateinit var vibrator: Vibrator
+    lateinit var timer:CountDownTimer
     var remindersDataList = ArrayList<ReminderData>()
     var currentReminderIndex = -1
-    lateinit var vibrator: Vibrator
     var workVibrator = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         binding = ActivityAlarmAutoRunBinding.inflate(layoutInflater)
         setContentView(binding.root)
         read()
@@ -42,18 +45,24 @@ class AlarmAutoRunActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD)
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED)
 
-        binding.animationView.postDelayed({
-            workVibrator = false
-            vibrator.cancel()
-            mediaPlayer.stop()
-            modesCheck()
-            finish()
-        },30000)
+        timer = object: CountDownTimer(30000,30000){
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() {
+                workVibrator = false
+                vibrator.cancel()
+                mediaPlayer.stop()
+                mediaPlayer.release()
+                modesCheck()
+                finish()
+            }
+        }.start()
 
         binding.animationView.setOnClickListener {
+            timer.cancel()
             workVibrator = false
             vibrator.cancel()
             mediaPlayer.stop()
+            mediaPlayer.release()
             modesCheck()
             finish()
         }
@@ -83,8 +92,6 @@ class AlarmAutoRunActivity : AppCompatActivity() {
     }
 
     fun vibrate(){
-        vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
         while (workVibrator) {
             vibrator.vibrate(1000)
             Thread.sleep(2000)

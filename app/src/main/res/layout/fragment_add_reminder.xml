@@ -132,40 +132,57 @@
                     android:id="@+id/animationView"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/recordTime"
+                    app:layout_constraintEnd_toStartOf="@+id/timer"
                     app:layout_constraintTop_toTopOf="parent"
                     app:lottie_autoPlay="true"
-                    android:visibility="gone"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginRight="16dp"
                     app:lottie_fileName="rec.json"
                     app:lottie_loop="true" />
 
-                <TextView
-                    android:id="@+id/recordTime"
+                <LinearLayout
+                    android:id="@+id/timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00.00"
-                    android:textColor="#009688"
-                    android:textStyle="bold"
+                    android:orientation="horizontal"
                     android:layout_marginBottom="16dp"
-                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnVoiceRecord"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/recordTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="#009688"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="sec"
+                        android:textColor="#009688"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnVoiceRecord"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:backgroundTint="#009688"
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_voice_record"
                     app:fabSize="normal"
-                    android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -176,13 +193,13 @@
                     android:id="@+id/btnPlay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:backgroundTint="#007065"
+                    android:layout_marginBottom="16dp"
                     android:clickable="true"
+                    android:enabled="false"
                     android:focusable="true"
                     android:src="@drawable/ic_play"
+                    app:backgroundTint="#007065"
                     app:fabSize="normal"
-                    android:enabled="false"
-                    android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btnVoiceRecord"

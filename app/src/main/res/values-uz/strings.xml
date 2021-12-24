@@ -39,4 +39,6 @@
     <string name="reminder_on_list">Bunday vaqtdagi eslatma ro\'yxatda mavjud!</string>
     <string name="open_app_settings">Ilova sozlamalarini ochish</string>
     <string name="limitation">15 sekunddan ortiq audio yozish mumkin emas!</string>
+    <string name="hold_to_record_voice">Ovoz yozish uchun bosib turing!</string>
+    <string name="press_hold_longer">Tugmani bir oz ko\'proq ushlab turing!</string>
 </resources>

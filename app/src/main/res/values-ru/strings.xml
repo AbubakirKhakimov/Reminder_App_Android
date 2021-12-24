@@ -39,4 +39,6 @@
     <string name="reminder_on_list">Напоминание в это время есть в списке!</string>
     <string name="open_app_settings">Открыть настройки приложения</string>
     <string name="limitation">Невозможно записать звук более 15 секунд!</string>
+    <string name="hold_to_record_voice">Удерживайте для записи голоса!</string>
+    <string name="press_hold_longer">Удерживайте кнопку немного дольше!</string>
 </resources>

@@ -25,7 +25,7 @@ interface RemindersAdapterCallBack{
 class RemindersAdapter(val remindersDataList:ArrayList<ReminderData>, val remindersAdapterCallBack: RemindersAdapterCallBack):RecyclerView.Adapter<RemindersAdapter.ItemHolder>(),PopupMenu.OnMenuItemClickListener {
     inner class ItemHolder(val binding: RemindersItemLayoutBinding):RecyclerView.ViewHolder(binding.root)
 
-    lateinit var mediaPlayer: MediaPlayer
+    var mediaPlayer = MediaPlayer()
     var popupPosition = -1
     lateinit var context:Context
 
@@ -78,16 +78,25 @@ class RemindersAdapter(val remindersDataList:ArrayList<ReminderData>, val remind
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when(item!!.itemId){
             R.id.startAudio -> {
+                if (mediaPlayer.isPlaying){
+                    mediaPlayer.stop()
+                }
                 mediaPlayer = MediaPlayer()
                 mediaPlayer.setDataSource(remindersDataList[popupPosition].reminderAudioPath)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
             }
             R.id.deleteReminder -> {
+                if (mediaPlayer.isPlaying){
+                    mediaPlayer.stop()
+                }
                 remindersAdapterCallBack.delateReminder(popupPosition)
                 notifyDataSetChanged()
             }
             R.id.editReminder -> {
+                if (mediaPlayer.isPlaying){
+                    mediaPlayer.stop()
+                }
                 remindersAdapterCallBack.editReminder(popupPosition)
             }
         }

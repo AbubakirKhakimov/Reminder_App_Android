@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,7 @@ class MainFragment : Fragment(),RemindersAdapterCallBack {
 
     lateinit var binding: FragmentMainBinding
     var remindersDataList = ArrayList<ReminderData>()
+    lateinit var adapter:RemindersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,27 +49,41 @@ class MainFragment : Fragment(),RemindersAdapterCallBack {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        read()
-
-        binding.rvReminders.adapter = RemindersAdapter(remindersDataList,this)
-
         binding.add.setOnClickListener {
             if (getMicrophonePermission()) {
                 replaceFragment(AddReminderFragment())
             }else{
+                if (adapter.mediaPlayer.isPlaying){
+                    adapter.mediaPlayer.stop()
+                }
                 Toast.makeText(requireActivity(), getString(R.string.allowMicrophone), Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.setLanguage.setOnClickListener {
+            if (adapter.mediaPlayer.isPlaying){
+                adapter.mediaPlayer.stop()
+            }
             val fragment = LanguageSetFragment()
             fragment.show(requireActivity().supportFragmentManager, fragment.tag)
         }
 
     }
 
-    fun replaceFragment(fragment: Fragment){
-        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentConteiner,fragment).commit()
+    //-------------------------------Working with a life circle--------------------------------\\
+
+    override fun onStart() {
+        super.onStart()
+        read()
+        adapter = RemindersAdapter(remindersDataList,this)
+        binding.rvReminders.adapter = adapter
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (adapter.mediaPlayer.isPlaying){
+            adapter.mediaPlayer.stop()
+        }
     }
 
     //-----------------------------------Working with a file------------------------------------\\
@@ -122,6 +138,9 @@ class MainFragment : Fragment(),RemindersAdapterCallBack {
 
     override fun setReminder(position:Int) {
         if (Date().after(Date(remindersDataList[position].reminderTimeMillis))){
+            if (adapter.mediaPlayer.isPlaying){
+                adapter.mediaPlayer.stop()
+            }
             PublicDatas.position = position
             PublicDatas.reminderSwitchOnClick = true
             replaceFragment(AddReminderFragment())
@@ -150,6 +169,10 @@ class MainFragment : Fragment(),RemindersAdapterCallBack {
     fun getAudioName(path: String): String {
         val size = path.length - 23
         return path.substring(size)
+    }
+
+    fun replaceFragment(fragment: Fragment){
+        requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentConteiner,fragment).commit()
     }
 
 }

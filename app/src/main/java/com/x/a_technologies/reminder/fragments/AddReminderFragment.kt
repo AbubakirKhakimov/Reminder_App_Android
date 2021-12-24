@@ -40,15 +40,27 @@ import android.media.MediaMetadataRetriever
 class AddReminderFragment : Fragment() {
 
     lateinit var binding: FragmentAddReminderBinding
-    lateinit var mediaRecorder:MediaRecorder
-    lateinit var mediaPlayer: MediaPlayer
+    var mediaRecorder = MediaRecorder()
+    var mediaPlayer = MediaPlayer()
     lateinit var timer:CountDownTimer
+    lateinit var appearanceAnimation: Animation
+    lateinit var disappearingAnimation: Animation
     var remindersDataList = ArrayList<ReminderData>()
     var voiceRecorded = false
     var everyDayMode = false
     var vibrateMode = false
     var recordPath = ""
+    var temporarilyRecordPath = ""
     lateinit var currentThemeColor:String
+
+    override fun onStop() {
+        super.onStop()
+        if (mediaPlayer.isPlaying){
+            mediaPlayer.stop()
+        }
+
+        actionUpVoiceButton()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,17 +72,6 @@ class AddReminderFragment : Fragment() {
         getSystemColor()
         timerObject()
         return binding.root
-    }
-
-    fun getSystemColor(){
-        val currentNightMode: Int = requireActivity().resources
-            .configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-
-        currentThemeColor = when (currentNightMode) {
-            Configuration.UI_MODE_NIGHT_NO -> "#FFFFFFFF"
-            Configuration.UI_MODE_NIGHT_YES -> "#202020"
-            else -> "#FFFFFFFF"
-        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -116,13 +117,6 @@ class AddReminderFragment : Fragment() {
         }
 
         binding.btnCancel.setOnClickListener {
-            if (voiceRecorded){
-                mediaRecorder.stop()
-                mediaRecorder.release()
-                voiceRecorded=false
-                timer.cancel()
-            }
-
             if (PublicDatas.position != -1){
                 if (remindersDataList[PublicDatas.position].reminderAudioPath != recordPath){
                     delateRecord(recordPath)
@@ -134,7 +128,7 @@ class AddReminderFragment : Fragment() {
                 }
 
                 PublicDatas.position = -1
-            } else if (recordPath!=""){
+            } else if (recordPath != ""){
                 delateRecord(recordPath)
                 recordPath=""
             }
@@ -202,13 +196,6 @@ class AddReminderFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (voiceRecorded){
-                    mediaRecorder.stop()
-                    mediaRecorder.release()
-                    voiceRecorded=false
-                    timer.cancel()
-                }
-
                 if (PublicDatas.position != -1){
                     if (remindersDataList[PublicDatas.position].reminderAudioPath != recordPath){
                         delateRecord(recordPath)
@@ -220,7 +207,7 @@ class AddReminderFragment : Fragment() {
                     }
 
                     PublicDatas.position = -1
-                } else if (recordPath!=""){
+                } else if (recordPath != ""){
                     delateRecord(recordPath)
                     recordPath=""
                 }
@@ -233,52 +220,121 @@ class AddReminderFragment : Fragment() {
         binding.btnVoiceRecord.setOnTouchListener { v, event ->
             when(event.action){
                 MotionEvent.ACTION_DOWN -> {
-                    if (recordPath!=""){
-                        delateRecord(recordPath)
-                    }
-                    voiceRecord()
-                    timer.start()
-
-                    binding.animationView.visibility = View.VISIBLE
-                    binding.btnPlay.isEnabled = false
-                    binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#007065"))
-                    binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.parseColor("#B6B6B6"))
-                    voiceRecorded=true
+                    actionDownVoiceButton()
                 }
                 MotionEvent.ACTION_UP -> {
-                    if (voiceRecorded) {
-                        mediaRecorder.stop()
-                        mediaRecorder.release()
-                        timer.cancel()
-
-                        binding.animationView.visibility = View.GONE
-                        binding.btnPlay.isEnabled = true
-                        binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#009688"))
-                        binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.WHITE)
-                        voiceRecorded = false
-                    }
+                    actionUpVoiceButton()
                 }
             }
-
             return@setOnTouchListener true
         }
 
     }
 
+    fun actionDownVoiceButton(){
+        animateTimer()
+        voiceRecord()
+        timer.start()
+
+        binding.animationView.visibility = View.VISIBLE
+        binding.btnPlay.isEnabled = false
+        binding.btnCancel.isClickable = false
+        binding.btnOk.isClickable = false
+        binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#007065"))
+        binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.parseColor("#B6B6B6"))
+        voiceRecorded = true
+    }
+
+    fun actionUpVoiceButton(){
+        if (voiceRecorded) {
+            binding.recordTime.postDelayed({
+                mediaRecorder.stop()
+                mediaRecorder.release()
+
+                val audioDuration = getCurrentAudioDuration(temporarilyRecordPath)
+                when {
+                    audioDuration < 200 -> {
+                        delateRecord(temporarilyRecordPath)
+                        Toast.makeText(requireActivity(),requireActivity().getString(R.string.hold_to_record_voice)
+                            ,Toast.LENGTH_SHORT).show()
+                    }
+                    audioDuration < 1000 -> {
+                        delateRecord(temporarilyRecordPath)
+                        Toast.makeText(requireActivity(), requireActivity().getString(R.string.press_hold_longer)
+                            ,Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
+                        if (PublicDatas.position == -1) {
+                            if (recordPath != "") {
+                                delateRecord(recordPath)
+                            }
+                        }else{
+                            if (remindersDataList[PublicDatas.position].reminderAudioPath != recordPath) {
+                                delateRecord(recordPath)
+                            }
+                        }
+                        recordPath = temporarilyRecordPath
+                    }
+                }
+
+                if (recordPath != ""){
+                    binding.btnPlay.isEnabled = true
+                    binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#009688"))
+                    binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.WHITE)
+                    binding.recordTime.text = SimpleDateFormat("ss")
+                        .format(Date(getCurrentAudioDuration(recordPath)))
+                }else{
+                    binding.recordTime.text = "00"
+                }
+
+                temporarilyRecordPath = ""
+                binding.btnCancel.isClickable = true
+                binding.btnOk.isClickable = true
+            },200)
+
+            timer.cancel()
+            binding.animationView.visibility = View.GONE
+            voiceRecorded = false
+        }
+    }
+
+    fun animateTimer(){
+        disappearingAnimation = AnimationUtils.loadAnimation(requireActivity(),R.anim.disappearing_animation)
+        appearanceAnimation = AnimationUtils.loadAnimation(requireActivity(),R.anim.appearance_animation)
+
+        binding.recordTime.startAnimation(disappearingAnimation)
+        disappearingAnimation.setAnimationListener(object :Animation.AnimationListener{
+            override fun onAnimationStart(animation: Animation?) {}
+            override fun onAnimationRepeat(animation: Animation?) {}
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.recordTime.startAnimation(appearanceAnimation)
+            }
+        })
+    }
+
     fun timerObject(){
-        timer = object :CountDownTimer(15000, 10){
+        timer = object :CountDownTimer(15200, 1000){
 
             override fun onTick(millisUntilFinished: Long) {
-                binding.recordTime.text = SimpleDateFormat("ss.SS").format(Date(15000-millisUntilFinished))
+                binding.recordTime.text = SimpleDateFormat("ss").format(Date(15200-millisUntilFinished))
             }
 
             override fun onFinish() {
                 mediaRecorder.stop()
                 mediaRecorder.release()
-                Toast.makeText(requireActivity(), requireActivity().getString(R.string.limitation), Toast.LENGTH_SHORT).show()
+                if (recordPath != ""){
+                    delateRecord(recordPath)
+                }
+                recordPath = temporarilyRecordPath
+                temporarilyRecordPath = ""
+
+                Toast.makeText(requireActivity()
+                    ,requireActivity().getString(R.string.limitation), Toast.LENGTH_SHORT).show()
 
                 binding.animationView.visibility = View.GONE
                 binding.btnPlay.isEnabled = true
+                binding.btnCancel.isClickable = true
+                binding.btnOk.isClickable = true
                 binding.btnPlay.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#009688"))
                 binding.btnPlay.supportImageTintList = ColorStateList.valueOf(Color.WHITE)
                 voiceRecorded=false
@@ -308,7 +364,11 @@ class AddReminderFragment : Fragment() {
         remindersDataList[position].reminderTimeMillis = getMillisTimeFormat()
         remindersDataList[position].everyDayMode = everyDayMode
         remindersDataList[position].vibrateMode = vibrateMode
-        remindersDataList[position].reminderAudioPath = recordPath
+
+        if (remindersDataList[position].reminderAudioPath != recordPath){
+            delateRecord(remindersDataList[position].reminderAudioPath)
+            remindersDataList[position].reminderAudioPath = recordPath
+        }
 
         if (remindersDataList[position].reminderActive){
             ReminderSetManager().setAlarm(requireActivity(),remindersDataList[position])
@@ -352,7 +412,7 @@ class AddReminderFragment : Fragment() {
             remindersDataList[position].reminderTitle)
         binding.reminderDate.text = getStringDateFormat("dd.MM.yyyy",remindersDataList[position].reminderTimeMillis)
         binding.reminderTime.text = getStringDateFormat("HH:mm",remindersDataList[position].reminderTimeMillis)
-        binding.recordTime.text = SimpleDateFormat("ss.SS").format(Date(getAudioDuration(position)))
+        binding.recordTime.text = SimpleDateFormat("ss").format(Date(getAudioDuration(position)))
 
         if (remindersDataList[position].everyDayMode){
             binding.everyDayMode.setTextColor(Color.WHITE)
@@ -377,6 +437,14 @@ class AddReminderFragment : Fragment() {
     fun getAudioDuration(position: Int):Long{
         val mediaMetadataRetriever = MediaMetadataRetriever()
         mediaMetadataRetriever.setDataSource(remindersDataList[position].reminderAudioPath)
+        val durationStr =
+            mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+        return durationStr!!.toLong()
+    }
+
+    fun getCurrentAudioDuration(path: String):Long{
+        val mediaMetadataRetriever = MediaMetadataRetriever()
+        mediaMetadataRetriever.setDataSource(path)
         val durationStr =
             mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         return durationStr!!.toLong()
@@ -426,6 +494,17 @@ class AddReminderFragment : Fragment() {
         return maxRequestCode+1
     }
 
+    fun getSystemColor(){
+        val currentNightMode: Int = requireActivity().resources
+            .configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+        currentThemeColor = when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> "#FFFFFFFF"
+            Configuration.UI_MODE_NIGHT_YES -> "#202020"
+            else -> "#FFFFFFFF"
+        }
+    }
+
     //-------------------------------Working with a record audio--------------------------------\\
 
     fun voiceRecord(){
@@ -444,7 +523,7 @@ class AddReminderFragment : Fragment() {
         val contextWrapper = ContextWrapper(requireActivity().applicationContext)
         val musicDirectory = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC) as File
         val file = File(musicDirectory,getGenerateAudioName())
-        recordPath = file.path
+        temporarilyRecordPath = file.path
         return file.path
     }
 
