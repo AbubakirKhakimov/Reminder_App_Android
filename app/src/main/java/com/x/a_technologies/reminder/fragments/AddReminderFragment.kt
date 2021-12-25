@@ -408,6 +408,7 @@ class AddReminderFragment : Fragment() {
     }
 
     fun editExistingReminder(position:Int){
+        binding.title.text = requireActivity().getString(R.string.fragment_add_title_edit)
         binding.reminderTitle.text = Editable.Factory.getInstance().newEditable(
             remindersDataList[position].reminderTitle)
         binding.reminderDate.text = getStringDateFormat("dd.MM.yyyy",remindersDataList[position].reminderTimeMillis)

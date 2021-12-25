@@ -41,4 +41,5 @@
     <string name="limitation">Невозможно записать звук более 15 секунд!</string>
     <string name="hold_to_record_voice">Удерживайте для записи голоса!</string>
     <string name="press_hold_longer">Удерживайте кнопку немного дольше!</string>
+    <string name="fragment_add_title_edit">Редактирование</string>
 </resources>

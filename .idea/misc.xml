@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/drawable/edit_text_backgraund.xml" value="0.26614583333333336" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/drawable/ic_add.xml" value="0.26614583333333336" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/drawable/ic_play.xml" value="0.26614583333333336" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/drawable/ic_voice_record.xml" value="0.26614583333333336" />
         <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/activity_alarm_auto_run.xml" value="0.151268115942029" />
-        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/fragment_add_reminder.xml" value="0.4515570934256055" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/fragment_add_reminder.xml" value="0.264" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/fragment_main.xml" value="0.12158054711246201" />
         <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/fragment_permissions.xml" value="0.264" />
+        <entry key="..\:/PROEKT/Android Studio/Reminder/app/src/main/res/layout/reminders_item_layout.xml" value="0.264" />
       </map>
     </option>
   </component>

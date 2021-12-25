@@ -65,8 +65,6 @@
                         android:id="@+id/mode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
                         android:layout_gravity="center_vertical"
                         android:text="Every day"
                         android:textColor="#009688"

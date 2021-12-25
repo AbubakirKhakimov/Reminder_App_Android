@@ -5,7 +5,7 @@
     <string name="edit_text_hint">Matn kiriting</string>
     <string name="reminder_date">Eslatma sanasi</string>
     <string name="reminder_time">Eslatma vaqti</string>
-    <string name="every_day_mode">Xar kunlik eslatma</string>
+    <string name="every_day_mode">Har kunlik eslatma</string>
     <string name="cancel">Bekor qilish</string>
     <string name="ok">Saqlash</string>
     <string name="languagesListName">Til</string>
@@ -21,7 +21,7 @@
     <string name="please_record_your_voice">Iltimos, ovozingizni yozib oling!</string>
     <string name="select_upcoming_time">Kelgusi vaqtni tanlang!</string>
     <string name="allowMicrophone">Bu funksiyadan foydalanish uchun mikrofonga ruxsat bering!</string>
-    <string name="every_day">Xar kuni</string>
+    <string name="every_day">Har kuni</string>
     <string name="disposable">Bir martalik</string>
     <string name="permissions">Ruxsatlar</string>
     <string name="recomend">Dasturning barcha funksiyalaridan foydalanish uchun quyidagi so\'ro\'vlarga ruxsat bering</string>
@@ -41,4 +41,5 @@
     <string name="limitation">15 sekunddan ortiq audio yozish mumkin emas!</string>
     <string name="hold_to_record_voice">Ovoz yozish uchun bosib turing!</string>
     <string name="press_hold_longer">Tugmani bir oz ko\'proq ushlab turing!</string>
+    <string name="fragment_add_title_edit">Tahrirlash</string>
 </resources>

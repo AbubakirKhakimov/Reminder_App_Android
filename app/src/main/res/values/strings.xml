@@ -40,4 +40,5 @@
     <string name="limitation">Sound cannot be recorded for more than 15 seconds!</string>
     <string name="press_hold_longer">Hold the button a little longer!</string>
     <string name="hold_to_record_voice">Hold to record voice!</string>
+    <string name="fragment_add_title_edit">Editing</string>
 </resources>
