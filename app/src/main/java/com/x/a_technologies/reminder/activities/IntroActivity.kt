@@ -18,6 +18,7 @@ class IntroActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.animationView.postDelayed({
+            binding.animationView.pauseAnimation()
             startActivity(Intent(this,MainActivity()::class.java))
             finish()
         },3000)
