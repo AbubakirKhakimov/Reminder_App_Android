@@ -28,13 +28,13 @@ class ReminderSetManager {
     private fun getAlarmActionPendingIntent(context: Context,requestCode:Int): PendingIntent? {
         val intent = Intent(context, AlarmAutoRunActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_MUTABLE)
     }
 
     private fun getAlarmInfoPendingIntent(context: Context,requestCode:Int): PendingIntent? {
         val alarmInfoIntent = Intent(context, MainActivity::class.java)
         alarmInfoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-        return PendingIntent.getActivity(context, requestCode, alarmInfoIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getActivity(context, requestCode, alarmInfoIntent, PendingIntent.FLAG_MUTABLE)
     }
 
 }
